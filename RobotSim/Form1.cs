@@ -13,6 +13,7 @@ namespace RobotSim {
 		#region Variables
 		Graphics gf, gb; Bitmap gi; int fx, fy, fx2, fy2;
 		Robot rob;
+		int dT = 10;
 		Rectangle[] walls = new Rectangle[64];
 		#endregion Variables
 		#region Events
@@ -23,19 +24,36 @@ namespace RobotSim {
 			gb = Graphics.FromImage(gi); gf = CreateGraphics();
 
 
-
+			tim.Interval = dT;
+			tim.Start();
 		}
+
 		private void Form1_KeyDown(object sender, KeyEventArgs e) {
 			switch(e.KeyCode) {
 				case Keys.Escape: Close(); break;
+				case Keys.W: rob.Forward(); break;
+				case Keys.A: rob.TurnLeft(); break;
+				case Keys.S: rob.Back(); break;
+				case Keys.D: rob.TurnRight(); break;
+
 
 				default: break;
 			}
 		}
+
 		private void Form1_Click(object sender, EventArgs e) {
 
 		}
+
 		private void tim_Tick(object sender, EventArgs e) {
+			// Physics!
+
+			rob.Tick(dT);
+
+
+		}
+
+		private void Form1_Paint(object sender, PaintEventArgs e) {
 
 		}
 
